@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 
 use regex::Regex;
 
@@ -45,7 +45,48 @@ impl Asn1Parser {
         )
     ";
 
+    fn get_object_id_aliases(asn1: &str) -> HashSet<String> {
+        // Using a Set because RFC's will often duplicate definitions.
+        // The first definition in a descriptive section.
+        // The second time in a complete ASN1 module appendix.
+        let mut alias = HashSet::new();
+
+        // In the input asn1, let's try to get "type aliases" for OBJECT IDENTIERs.
+        //
+        // For example in https://datatracker.ietf.org/doc/html/rfc5280#appendix-A.1,
+        // The AttributeType is defined as below:
+        //
+        // AttributeType                   ::= OBJECT IDENTIFIER
+        // id-at         OBJECT IDENTIFIER ::= { joint-iso-ccitt(2) ds(5) 4 }
+        // id-at-name    AttributeType     ::= { id-at 41 }
+        // ...
+        // id-at-commonName  AttributeType ::= { id-at 3 }
+        //
+        // Get alias by finding "some_type ::= OBJECT IDENTIFIER"
+        let re = Regex::new(r"(?P<alias>[a-zA-Z0-9-]*)\s+::=\s+OBJECT\s+IDENTIFIER\n").unwrap();
+        for c in re.captures_iter(asn1) {
+            alias.insert(c["alias"].to_string());
+        }
+
+        alias
+    }
+
+    fn replace_aliases(asn1: &str, aliases: &HashSet<String>) -> String {
+        let mut replace_alias = asn1.to_string();
+
+        for alias in aliases {
+            let f = format!("(?P<ty>[a-z][a-zA-Z0-9-]+)[ ]+(?P<a>{alias})");
+            let re = Regex::new(&f).unwrap();
+            replace_alias = re.replace_all(&replace_alias, "$ty OBJECT IDENTIFIER").to_string();
+        }
+
+        replace_alias
+    }
     pub fn new(asn1: &str, bases: &[(&'static str, &'static str)]) -> Self {
+
+        let aliases = Self::get_object_id_aliases(asn1);
+        let asn1 = &Self::replace_aliases(asn1, &aliases);
+
         let def = Regex::new(Self::DEF).unwrap();
         let arc = Regex::new(Self::ARC).unwrap();
 

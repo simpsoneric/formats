@@ -1368,8 +1368,12 @@ pub mod rfc5020 {
         crate::ObjectIdentifier::new_unwrap("1.3.6.1.1.20");
 }
 pub mod rfc5280 {
+    pub const ID_DOMAIN_COMPONENT: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("0.9.2342.19200300.100.1.25");
     pub const PKCS_9: crate::ObjectIdentifier =
         crate::ObjectIdentifier::new_unwrap("1.2.840.113549.1.9");
+    pub const ID_EMAIL_ADDRESS: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("1.2.840.113549.1.9.1");
     pub const ID_PKIX: crate::ObjectIdentifier =
         crate::ObjectIdentifier::new_unwrap("1.3.6.1.5.5.7");
     pub const ID_PE: crate::ObjectIdentifier =
@@ -1468,6 +1472,35 @@ pub mod rfc5280 {
     pub const ID_CE_SUBJECT_DIRECTORY_ATTRIBUTES: crate::ObjectIdentifier =
         crate::ObjectIdentifier::new_unwrap("2.5.29.9");
     pub const ID_AT: crate::ObjectIdentifier = crate::ObjectIdentifier::new_unwrap("2.5.4");
+    pub const ID_AT_ORGANIZATION_NAME: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.10");
+    pub const ID_AT_ORGANIZATIONAL_UNIT_NAME: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.11");
+    pub const ID_AT_TITLE: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.12");
+    pub const ID_AT_COMMON_NAME: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.3");
+    pub const ID_AT_SURNAME: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.4");
+    pub const ID_AT_NAME: crate::ObjectIdentifier = crate::ObjectIdentifier::new_unwrap("2.5.4.41");
+    pub const ID_AT_GIVEN_NAME: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.42");
+    pub const ID_AT_INITIALS: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.43");
+    pub const ID_AT_GENERATION_QUALIFIER: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.44");
+    pub const ID_AT_DN_QUALIFIER: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.46");
+    pub const ID_AT_SERIAL_NUMBER: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.5");
+    pub const ID_AT_COUNTRY_NAME: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.6");
+    pub const ID_AT_PSEUDONYM: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.65");
+    pub const ID_AT_LOCALITY_NAME: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.7");
+    pub const ID_AT_STATE_OR_PROVINCE_NAME: crate::ObjectIdentifier =
+        crate::ObjectIdentifier::new_unwrap("2.5.4.8");
 }
 pub mod rfc5911 {
     pub const ID_PBKDF_2: crate::ObjectIdentifier =
@@ -3703,7 +3736,9 @@ pub const DB: super::Database<'static> = super::Database(&[
     (&rfc4876::ATTRIBUTE_MAP, "attributeMap"),
     (&rfc4876::DUA_CONFIG_PROFILE, "DUAConfigProfile"),
     (&rfc5020::ENTRY_DN, "entryDN"),
+    (&rfc5280::ID_DOMAIN_COMPONENT, "id-domainComponent"),
     (&rfc5280::PKCS_9, "pkcs-9"),
+    (&rfc5280::ID_EMAIL_ADDRESS, "id-emailAddress"),
     (&rfc5280::ID_PKIX, "id-pkix"),
     (&rfc5280::ID_PE, "id-pe"),
     (
@@ -3799,6 +3834,30 @@ pub const DB: super::Database<'static> = super::Database(&[
         "id-ce-subjectDirectoryAttributes",
     ),
     (&rfc5280::ID_AT, "id-at"),
+    (&rfc5280::ID_AT_ORGANIZATION_NAME, "id-at-organizationName"),
+    (
+        &rfc5280::ID_AT_ORGANIZATIONAL_UNIT_NAME,
+        "id-at-organizationalUnitName",
+    ),
+    (&rfc5280::ID_AT_TITLE, "id-at-title"),
+    (&rfc5280::ID_AT_COMMON_NAME, "id-at-commonName"),
+    (&rfc5280::ID_AT_SURNAME, "id-at-surname"),
+    (&rfc5280::ID_AT_NAME, "id-at-name"),
+    (&rfc5280::ID_AT_GIVEN_NAME, "id-at-givenName"),
+    (&rfc5280::ID_AT_INITIALS, "id-at-initials"),
+    (
+        &rfc5280::ID_AT_GENERATION_QUALIFIER,
+        "id-at-generationQualifier",
+    ),
+    (&rfc5280::ID_AT_DN_QUALIFIER, "id-at-dnQualifier"),
+    (&rfc5280::ID_AT_SERIAL_NUMBER, "id-at-serialNumber"),
+    (&rfc5280::ID_AT_COUNTRY_NAME, "id-at-countryName"),
+    (&rfc5280::ID_AT_PSEUDONYM, "id-at-pseudonym"),
+    (&rfc5280::ID_AT_LOCALITY_NAME, "id-at-localityName"),
+    (
+        &rfc5280::ID_AT_STATE_OR_PROVINCE_NAME,
+        "id-at-stateOrProvinceName",
+    ),
     (&rfc5911::ID_PBKDF_2, "id-PBKDF2"),
     (&rfc5911::ID_DATA, "id-data"),
     (&rfc5911::ID_SIGNED_DATA, "id-signedData"),
